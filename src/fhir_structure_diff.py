@@ -2,9 +2,14 @@ import os
 from jinja2 import Template
 from lib import profile_diff as pd
 from lib import profile_args
+from lib import profile_mappings
 
 
 def fhir_structure_diff(args):
+
+    mappings = profile_mappings.extract_mapping(args)
+    print(mappings)
+
     element_level_diff = pd.element_diff(args.leftprofile, args.rightprofile)
     component_level_diff = pd.component_diff(args.leftprofile, args.rightprofile, args.leftversion)  # TODO support multiple versions
 

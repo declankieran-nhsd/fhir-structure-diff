@@ -30,7 +30,7 @@ def check_profile(profile, view):
         raise ValueError('Unexpected data types for element diff.\n\nProfile -> ' + str(profile))
 
     if view not in profile.keys():
-        raise ValueError('No ' + str(view) + ' section found profile.\n\nProfile -> ' +
+        raise ValueError('No ' + str(view) + ' section found in profile.\n\nProfile -> ' +
                          json.dumps(profile, indent=2))
 
     if 'element' not in profile[view]:

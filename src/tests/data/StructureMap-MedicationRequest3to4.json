@@ -1,0 +1,817 @@
+{
+  "resourceType": "StructureMap",
+  "id": "MedicationRequest3to4",
+  "url": "http://hl7.org/fhir/StructureMap/MedicationRequest3to4",
+  "name": "R3 to R4 Conversions for MedicationRequest",
+  "structure": [
+    {
+      "url": "http://hl7.org/fhir/3.0/StructureDefinition/MedicationRequest",
+      "mode": "source",
+      "alias": "MedicationRequestR3"
+    },
+    {
+      "url": "http://hl7.org/fhir/4.0/StructureDefinition/MedicationRequest",
+      "mode": "target",
+      "alias": "MedicationRequest"
+    }
+  ],
+  "import": [
+    "http://hl7.org/fhir/StructureMap/*3to4"
+  ],
+  "group": [
+    {
+      "name": "MedicationRequest",
+      "extends": "DomainResource",
+      "typeMode": "type-and-types",
+      "input": [
+        {
+          "name": "src",
+          "type": "MedicationRequestR3",
+          "mode": "source"
+        },
+        {
+          "name": "tgt",
+          "type": "MedicationRequest",
+          "mode": "target"
+        }
+      ],
+      "rule": [
+        {
+          "name": "identifier",
+          "source": [
+            {
+              "context": "src",
+              "element": "identifier",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "identifier",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "definition",
+          "source": [
+            {
+              "context": "src",
+              "element": "definition",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "instantiatesCanonical",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "basedOn",
+          "source": [
+            {
+              "context": "src",
+              "element": "basedOn",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "basedOn",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "groupIdentifier",
+          "source": [
+            {
+              "context": "src",
+              "element": "groupIdentifier",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "groupIdentifier",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "source": [
+            {
+              "context": "src",
+              "element": "status",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "status",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "intent",
+          "source": [
+            {
+              "context": "src",
+              "element": "intent",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "intent",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "category",
+          "source": [
+            {
+              "context": "src",
+              "element": "category",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "category",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "priority",
+          "source": [
+            {
+              "context": "src",
+              "element": "priority",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "priority",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "medication-CodeableConcept",
+          "source": [
+            {
+              "context": "src",
+              "type": "CodeableConcept",
+              "element": "medication",
+              "variable": "vs"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "medication",
+              "variable": "vt",
+              "transform": "create",
+              "parameter": [
+                {
+                  "valueString": "CodeableConcept"
+                }
+              ]
+            }
+          ],
+          "dependent": [
+            {
+              "name": "CodeableConcept",
+              "variable": [
+                "vs",
+                "vt"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "medication-Reference",
+          "source": [
+            {
+              "context": "src",
+              "type": "Reference",
+              "element": "medication",
+              "variable": "vs"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "medication",
+              "variable": "vt",
+              "transform": "create",
+              "parameter": [
+                {
+                  "valueString": "Reference"
+                }
+              ]
+            }
+          ],
+          "dependent": [
+            {
+              "name": "Reference",
+              "variable": [
+                "vs",
+                "vt"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "subject",
+          "source": [
+            {
+              "context": "src",
+              "element": "subject",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "subject",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "context",
+          "source": [
+            {
+              "context": "src",
+              "element": "context",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "encounter",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "supportingInformation",
+          "source": [
+            {
+              "context": "src",
+              "element": "supportingInformation",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "supportingInformation",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "authoredOn",
+          "source": [
+            {
+              "context": "src",
+              "element": "authoredOn",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "authoredOn",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "requester",
+          "source": [
+            {
+              "context": "src",
+              "element": "requester",
+              "variable": "vs0"
+            }
+          ],
+          "dependent": [
+            {
+              "name": "requester",
+              "variable": [
+                "vs0",
+                "tgt"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "recorder",
+          "source": [
+            {
+              "context": "src",
+              "element": "recorder",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "recorder",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "reasonCode",
+          "source": [
+            {
+              "context": "src",
+              "element": "reasonCode",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "reasonCode",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "reasonReference",
+          "source": [
+            {
+              "context": "src",
+              "element": "reasonReference",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "reasonReference",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "note",
+          "source": [
+            {
+              "context": "src",
+              "element": "note",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "note",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "dosageInstruction",
+          "source": [
+            {
+              "context": "src",
+              "element": "dosageInstruction",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "dosageInstruction",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "dispenseRequest",
+          "source": [
+            {
+              "context": "src",
+              "element": "dispenseRequest",
+              "variable": "vs0"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "dispenseRequest",
+              "variable": "vt0"
+            }
+          ],
+          "dependent": [
+            {
+              "name": "dispense",
+              "variable": [
+                "vs0",
+                "vt0"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "substitution",
+          "source": [
+            {
+              "context": "src",
+              "element": "substitution",
+              "variable": "vs0"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "substitution",
+              "variable": "vt0"
+            }
+          ],
+          "dependent": [
+            {
+              "name": "subst",
+              "variable": [
+                "vs0",
+                "vt0"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "priorPrescription",
+          "source": [
+            {
+              "context": "src",
+              "element": "priorPrescription",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "priorPrescription",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "detectedIssue",
+          "source": [
+            {
+              "context": "src",
+              "element": "detectedIssue",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "detectedIssue",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "eventHistory",
+          "source": [
+            {
+              "context": "src",
+              "element": "eventHistory",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "eventHistory",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "requester",
+      "typeMode": "none",
+      "input": [
+        {
+          "name": "src",
+          "mode": "source"
+        },
+        {
+          "name": "tgt",
+          "mode": "target"
+        }
+      ],
+      "rule": [
+        {
+          "name": "agent",
+          "source": [
+            {
+              "context": "src",
+              "element": "agent",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "requester",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "onBehalfOf",
+          "source": [
+            {
+              "context": "src",
+              "element": "onBehalfOf",
+              "variable": "v"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "extension",
+              "variable": "vt"
+            },
+            {
+              "context": "vt",
+              "contextType": "variable",
+              "element": "url",
+              "transform": "copy",
+              "parameter": [
+                {
+                  "valueString": "http://hl7.org/fhir/3.0/StructureDefinition/extension-MedicationRequest.requester.onBehalfOf"
+                }
+              ]
+            },
+            {
+              "context": "vt",
+              "contextType": "variable",
+              "element": "value",
+              "transform": "copy",
+              "parameter": [
+                {
+                  "valueId": "v"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dispense",
+      "typeMode": "none",
+      "input": [
+        {
+          "name": "src",
+          "mode": "source"
+        },
+        {
+          "name": "tgt",
+          "mode": "target"
+        }
+      ],
+      "rule": [
+        {
+          "name": "validityPeriod",
+          "source": [
+            {
+              "context": "src",
+              "element": "validityPeriod",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "validityPeriod",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "numberOfRepeatsAllowed",
+          "source": [
+            {
+              "context": "src",
+              "element": "numberOfRepeatsAllowed",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "numberOfRepeatsAllowed",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "quantity",
+          "source": [
+            {
+              "context": "src",
+              "element": "quantity",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "quantity",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "expectedSupplyDuration",
+          "source": [
+            {
+              "context": "src",
+              "element": "expectedSupplyDuration",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "expectedSupplyDuration",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        },
+        {
+          "name": "performer",
+          "source": [
+            {
+              "context": "src",
+              "element": "performer",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "performer",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "subst",
+      "typeMode": "none",
+      "input": [
+        {
+          "name": "src",
+          "mode": "source"
+        },
+        {
+          "name": "tgt",
+          "mode": "target"
+        }
+      ],
+      "rule": [
+        {
+          "name": "allowed",
+          "source": [
+            {
+              "context": "src",
+              "element": "allowed",
+              "variable": "vs"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "allowed",
+              "variable": "vt",
+              "transform": "create",
+              "parameter": [
+                {
+                  "valueString": "boolean"
+                }
+              ]
+            }
+          ],
+          "dependent": [
+            {
+              "name": "boolean",
+              "variable": [
+                "vs",
+                "vt"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "reason",
+          "source": [
+            {
+              "context": "src",
+              "element": "reason",
+              "variable": "vvv"
+            }
+          ],
+          "target": [
+            {
+              "context": "tgt",
+              "contextType": "variable",
+              "element": "reason",
+              "variable": "vvv",
+              "transform": "create"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

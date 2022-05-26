@@ -1,0 +1,522 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "UKCore-MedicationRequest",
+  "url": "https://fhir.hl7.org.uk/StructureDefinition/UKCore-MedicationRequest",
+  "version": "2.1.0",
+  "name": "UKCoreMedicationRequest",
+  "title": "UK Core MedicationRequest",
+  "status": "active",
+  "date": "2021-09-10",
+  "publisher": "HL7 UK",
+  "contact": [
+    {
+      "name": "HL7 UK",
+      "telecom": [
+        {
+          "system": "email",
+          "value": "secretariat@hl7.org.uk",
+          "use": "work",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "name": "NHS Digital",
+      "telecom": [
+        {
+          "system": "email",
+          "value": "interoperabilityteam@nhs.net",
+          "use": "work",
+          "rank": 2
+        }
+      ]
+    }
+  ],
+  "description": "Defines the UK Core constraints and extensions on the MedicationRequest resource for the minimal set of data to query and retrieve prescription information.",
+  "purpose": "An order or request for both supply of the medication and the instructions for administration of the medication to an individual. This profile covers inpatient medication orders as well as community orders (whether filled by the prescriber or by a pharmacy). It also includes orders for over-the-counter medications (e.g. Aspirin), total parenteral nutrition and diet/ vitamin supplements. It may be used to support the order of medication-related devices. It is not intended for use in prescribing particular diets, or for ordering non-medication-related items (eyeglasses, supplies, etc).",
+  "copyright": "Copyright © 2021+ HL7 UK Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. HL7® FHIR® standard Copyright © 2011+ HL7 The HL7® FHIR® standard is used under the FHIR license. You may obtain a copy of the FHIR license at  https://www.hl7.org/fhir/license.html.",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "workflow",
+      "uri": "http://hl7.org/fhir/workflow",
+      "name": "Workflow Pattern"
+    },
+    {
+      "identity": "script10.6",
+      "uri": "http://ncpdp.org/SCRIPT10_6",
+      "name": "Mapping to NCPDP SCRIPT 10.6"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    },
+    {
+      "identity": "v2",
+      "uri": "http://hl7.org/v2",
+      "name": "HL7 v2 Mapping"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "MedicationRequest",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "MedicationRequest.extension",
+        "path": "MedicationRequest.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "rules": "open"
+        }
+      },
+      {
+        "id": "MedicationRequest.extension:medicationRepeatInformation",
+        "path": "MedicationRequest.extension",
+        "sliceName": "medicationRepeatInformation",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-MedicationRepeatInformation"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.identifier.assigner",
+        "path": "MedicationRequest.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.category",
+        "path": "MedicationRequest.category",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-MedicationRequestCategory"
+        }
+      },
+      {
+        "id": "MedicationRequest.reported[x]",
+        "path": "MedicationRequest.reported[x]",
+        "type": [
+          {
+            "code": "boolean"
+          },
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Patient",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Practitioner",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-PractitionerRole",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-RelatedPerson",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.medication[x]",
+        "path": "MedicationRequest.medication[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          },
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Medication"
+            ]
+          }
+        ],
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-MedicationCode"
+        }
+      },
+      {
+        "id": "MedicationRequest.subject",
+        "path": "MedicationRequest.subject",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.org/fhir/StructureDefinition/Group",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Patient"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.subject.identifier.assigner",
+        "path": "MedicationRequest.subject.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.encounter",
+        "path": "MedicationRequest.encounter",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Encounter"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.encounter.identifier.assigner",
+        "path": "MedicationRequest.encounter.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.supportingInformation.identifier.assigner",
+        "path": "MedicationRequest.supportingInformation.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.requester",
+        "path": "MedicationRequest.requester",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Device",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Practitioner",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-PractitionerRole",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Patient",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-RelatedPerson"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.requester.identifier.assigner",
+        "path": "MedicationRequest.requester.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.performer",
+        "path": "MedicationRequest.performer",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Device",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Practitioner",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-PractitionerRole",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Patient",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-RelatedPerson",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-CareTeam"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.performer.identifier.assigner",
+        "path": "MedicationRequest.performer.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.recorder",
+        "path": "MedicationRequest.recorder",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Practitioner",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-PractitionerRole"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.recorder.identifier.assigner",
+        "path": "MedicationRequest.recorder.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.reasonReference",
+        "path": "MedicationRequest.reasonReference",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Condition",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Observation"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.reasonReference.identifier.assigner",
+        "path": "MedicationRequest.reasonReference.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.basedOn",
+        "path": "MedicationRequest.basedOn",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-CarePlan",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-MedicationRequest",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-ServiceRequest"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.basedOn.identifier.assigner",
+        "path": "MedicationRequest.basedOn.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.groupIdentifier.assigner",
+        "path": "MedicationRequest.groupIdentifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.courseOfTherapyType",
+        "path": "MedicationRequest.courseOfTherapyType",
+        "short": "A course of therapy for a medication request",
+        "definition": "The description of the course of therapy for a medication request.",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-MedicationRequestCourseOfTherapy"
+        }
+      },
+      {
+        "id": "MedicationRequest.insurance.identifier.assigner",
+        "path": "MedicationRequest.insurance.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.note.author[x]",
+        "path": "MedicationRequest.note.author[x]",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Practitioner",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Patient",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-RelatedPerson",
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          },
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.asNeeded[x]",
+        "path": "MedicationRequest.dosageInstruction.asNeeded[x]",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-MedicationPrecondition"
+        }
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site",
+        "path": "MedicationRequest.dosageInstruction.site",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-BodySite"
+        }
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route",
+        "path": "MedicationRequest.dosageInstruction.route",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-SubstanceOrProductAdministrationRoute"
+        }
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method",
+        "path": "MedicationRequest.dosageInstruction.method",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://fhir.hl7.org.uk/ValueSet/UKCore-MedicationDosageMethod"
+        }
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.performer",
+        "path": "MedicationRequest.dispenseRequest.performer",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.performer.identifier.assigner",
+        "path": "MedicationRequest.dispenseRequest.performer.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.substitution",
+        "path": "MedicationRequest.substitution",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.substitution.allowed[x]",
+        "path": "MedicationRequest.substitution.allowed[x]",
+        "definition": "The purpose of this element is to allow the prescriber to dispense a different drug from what was prescribed."
+      },
+      {
+        "id": "MedicationRequest.priorPrescription",
+        "path": "MedicationRequest.priorPrescription",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-MedicationRequest"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.priorPrescription.identifier.assigner",
+        "path": "MedicationRequest.priorPrescription.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.detectedIssue.identifier.assigner",
+        "path": "MedicationRequest.detectedIssue.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.eventHistory.identifier.assigner",
+        "path": "MedicationRequest.eventHistory.identifier.assigner",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
