@@ -1,5 +1,5 @@
 # fhir-structure-diff
-A tool to provide a simple diff of two profiles.  The diff all provides context in terms of the base element definitions.
+A tool to provide a simple diff of two profiles.  The diff all provides context in terms of the base element definitions. 
 
 
 ## WIP
